@@ -1,9 +1,9 @@
 {
   "id": "slskd-whitelist",
   "name": "Soulseek Whitelist",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "api": 1,
-  "description": "Answers Soulseek whitelist bots, like ProveIt, that ask you to type a word before they share.",
+  "description": "Answers Soulseek bots, like ProveIt, that ask you to type a word before they share.",
   "repository": "https://github.com/lklynet/aurral-slskd-whitelist",
   "uses": ["Your slskd", "slskd private messages"],
   "settings": [],

@@ -1,9 +1,12 @@
 const DAY_MS = 24 * 60 * 60 * 1000;
-const PROMPT = /\btype\s+["“'‘]([^\s"“”'‘’]{1,32})["”'’]/i;
+const CHALLENGE = /whitelist|human|robot|verif|captcha|download/i;
+const QUOTED =
+  /\b(?:type|say|keyword is)\s+(?:the\s+(?:key)?word\s+)?["“'‘>]\s*([^"“”'‘’<>]{1,48}?)\s*["”'’<]/i;
+const BARE = /\b(?:wor[dt]|keyword):\s*([\p{L}\p{N}]{1,32})\b/iu;
 
-export function whitelistWord(message) {
-  if (!/whitelist/i.test(message)) return null;
-  return message.match(PROMPT)?.[1] ?? null;
+export function challengeAnswer(message) {
+  if (!CHALLENGE.test(message)) return null;
+  return (message.match(QUOTED) ?? message.match(BARE))?.[1] ?? null;
 }
 
 const incoming = (message) => message.direction === "In" || message.direction === 1;
@@ -13,12 +16,12 @@ export function pendingWord(messages, since) {
   const ordered = messages
     .map((message) => ({ ...message, at: time(message.timestamp) }))
     .sort((a, b) => a.at - b.at);
-  const index = ordered.findLastIndex((message) => incoming(message) && whitelistWord(message.message));
+  const index = ordered.findLastIndex((message) => incoming(message) && challengeAnswer(message.message));
   if (index === -1) return null;
   const prompt = ordered[index];
   if (prompt.at < since) return null;
   if (ordered.slice(index + 1).some((message) => !incoming(message))) return null;
-  return whitelistWord(prompt.message);
+  return challengeAnswer(prompt.message);
 }
 
 async function connect(api) {
