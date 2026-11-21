@@ -50,7 +50,7 @@ export default {
 
   async scheduled({ api }) {
     const slskd = await connect(api);
-    const conversations = await slskd("/conversations?unAcknowledgedOnly=true");
+    const conversations = await slskd("/conversations");
     const since = Date.now() - DAY_MS;
     for (const { username } of conversations) {
       const path = `/conversations/${encodeURIComponent(username)}`;

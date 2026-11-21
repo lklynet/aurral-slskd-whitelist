@@ -6,7 +6,7 @@ Some people on Soulseek run bots like ProveIt that won't share until you reply t
 
 > To prove you are a human downloading these files, please type "download" in this chat to be added to my whitelist.
 
-This plugin checks slskd's private messages every 15 minutes, finds prompts like that, and sends the word back. The next time Aurral picks that person as a source, the download goes through.
+This plugin checks your active slskd conversations every 15 minutes, finds prompts like that, and sends the word back. The next time Aurral picks that person as a source, the download goes through.
 
 ## Install
 
@@ -19,7 +19,7 @@ There's nothing to set. The plugin reads slskd's address and key from Aurral, wh
 
 ## What it answers
 
-A message counts when it mentions a whitelist and says to type a single quoted word, like `type "download"`. The plugin answers each prompt once, skips prompts older than a day, and leaves every other message alone. It never marks messages as read, so you still see them in slskd.
+A message counts when it mentions a whitelist and says to type a single quoted word, like `type "download"`. The plugin answers each prompt once, skips prompts older than a day, and leaves every other message alone. It answers whether or not you have read the message, and never marks anything as read.
 
 ## Be a good peer
 
